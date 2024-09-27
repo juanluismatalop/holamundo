@@ -93,9 +93,8 @@ public class GeneradorPersonas {
      * @return
      */
     String getEmail(Persona p){
-        String email="@educaand.es";
-
-        return email;
+        String email=p.nombre.charAt(0)+p.apellido+"@educaand.es";
+        return email.toLowerCase();
     }
 
     /**
