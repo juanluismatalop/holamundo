@@ -3,19 +3,19 @@ package com.iesvdc.acceso;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Perosona {
+public class Persona {
     String nombre;
     String apellido;
     String email;
     int numeroDNI;
     char letraDNI;
     LocalDate fechaNacimiento;
-    private Sexo sexo;
+    Sexo sexo;
 
-    public Perosona() {
+    public Persona() {
     }
 
-    public Perosona(String nombre, String apellido, String email, int numeroDNI, char letraDNI, LocalDate fechaNacimiento, Sexo sexo) {
+    public Persona(String nombre, String apellido, String email, int numeroDNI, char letraDNI, LocalDate fechaNacimiento, Sexo sexo) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
@@ -87,10 +87,10 @@ public class Perosona {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof Perosona)) {
+        if (!(o instanceof Persona)) {
             return false;
         }
-        Perosona perosona = (Perosona) o;
+        Persona perosona = (Persona) o;
         return Objects.equals(nombre, perosona.nombre) && Objects.equals(apellido, perosona.apellido) && Objects.equals(email, perosona.email) && numeroDNI == perosona.numeroDNI && letraDNI == perosona.letraDNI && Objects.equals(fechaNacimiento, perosona.fechaNacimiento);
     }
 
