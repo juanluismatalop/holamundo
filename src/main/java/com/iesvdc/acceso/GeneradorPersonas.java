@@ -3,6 +3,7 @@ package com.iesvdc.acceso;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -105,6 +106,7 @@ public class GeneradorPersonas {
 
         p.setApellido(getRandomString(listaApellidos));
 
+
         switch (p.getSexo()) {
             case HOMBRE:
                 p.setNombre(getRandomString(listaNombresHombre));
@@ -121,6 +123,14 @@ public class GeneradorPersonas {
         }
 
         p.setEmail(getEmail(p));
+
+        p.setNumeroDNI(gnerarDNIRandom());
+
+        try{
+            p.setLetraDNI(calcularLetra(gnerarDNIRandom()));
+        }catch(DniException e){}
+
+        p.setFechaNacimiento(generarFechasNacimiento());
         
         
 
@@ -145,7 +155,7 @@ public class GeneradorPersonas {
      * @param numero
      * @return lista de personas
      */
-    List<Persona> generaPersonas(int numero)throws Exception{
+    public List<Persona> generaPersonas(int numero)throws Exception{
         List<Persona> lista = new ArrayList<Persona>();
         if (this.listaApellidos==null ||this.listaNombresHombre==null || this.listaNombresMujer==null) {
             //System.err.println("No se han podido acceder a esos archivos");
@@ -157,5 +167,25 @@ public class GeneradorPersonas {
                 lista.add(getRandomPersona());
         }
         return lista;
+    }
+    /**
+     * Metodo que genera una fecha aleatoria desde 1920 hasta hoy 
+     * @return la fecha de nacimiento
+     */
+    private LocalDate generarFechasNacimiento(){
+        //long [nombre] = dd-MM-yyyy HH:mm:ss
+        LocalDate startingDate = LocalDate.of(1920, 1, 1);
+        long startingDateLong = startingDate.toEpochDay();
+        LocalDate endingDate = LocalDate.now();
+        long endingDateLong = endingDate.toEpochDay();
+        long aleatorio = new Random().nextLong(endingDateLong - startingDateLong);        
+        LocalDate fechaRandom = LocalDate.ofEpochDay(aleatorio + startingDateLong);
+        return fechaRandom;
+    } 
+
+    private static int gnerarDNIRandom(){
+        Random rd = new Random();
+        int dni = rd.nextInt(1000000 , 10000000);
+        return dni;
     }
 }
