@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Persona {
+
     String nombre;
     String apellido;
     String email;
@@ -101,15 +102,14 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "{" +
-             " nombre='':'" + getNombre() + "'" +
-            ", apellido='':'" + getApellido() + "'" +
-            ", email='':'" + getEmail() + "'" +
-            ", numeroDNI='':'" + getNumeroDNI() + "'" +
-            ", letraDNI='':'" + getLetraDNI() + "'" +
-            ", fechaNacimiento='':'" + getFechaNacimiento() + "'" +
-            ", sexo='':'" + getSexo() + "'" +
-            "}";
+        return "nombre=" + getNombre() +
+            ", apellido=" + getApellido() +
+            ", email=" + getEmail() +
+            ", numeroDNI=" + getNumeroDNI() +
+            ", letraDNI=" + getLetraDNI() +
+            ", fechaNacimiento="+ getFechaNacimiento() +
+            ", sexo=" + getSexo() +"\n\n"
+;
     }
 
     

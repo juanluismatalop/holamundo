@@ -1,14 +1,11 @@
 package com.iesvdc.acceso;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import com.iesvdc.acceso.Persona;
-import com.iesvdc.acceso.Sexo;
 
 /**
  * Clase general para cargar archivos de nombres y apellidos 
@@ -133,14 +130,32 @@ public class GeneradorPersonas {
     /**
      * Dado un número de DNI (número entero entre 1.000.000 y 99.999.999)
      * @param dni
-     * @return
+     * @return  devuelve un la letra del DNI valido
      */
     public char calcularLetra(int dni) throws DniException{
         if (dni > 99999999 || dni < 1000000) {
-            throw new DniException();
+            throw new DniException("DNI fuera de rango");
         }
         String caracteres="TRWAGMYFPDXBNJZSQVHLCKE";
         int resto = dni%23;
         return caracteres.charAt(resto);
-   }
+    }
+    /**
+     * Un metodo que genera una lista de personas que vaya recorriendo la lista y añadiendo automaticamente
+     * @param numero
+     * @return lista de personas
+     */
+    List<Persona> generaPersonas(int numero)throws Exception{
+        List<Persona> lista = new ArrayList<Persona>();
+        if (this.listaApellidos==null ||this.listaNombresHombre==null || this.listaNombresMujer==null) {
+            //System.err.println("No se han podido acceder a esos archivos");
+            throw new Exception("Error no se han cargado los archivos con los nombres y apellidos previamente.");
+            
+        }
+        else
+            for (int i = 0; i < numero; i++){
+                lista.add(getRandomPersona());
+        }
+        return lista;
+    }
 }
