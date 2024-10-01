@@ -1,7 +1,7 @@
 package com.iesvdc.acceso;
 
 /**
- * Hello world!
+ * Hola mundo
  */
 public class App {
     public static void main(String[] args) {
