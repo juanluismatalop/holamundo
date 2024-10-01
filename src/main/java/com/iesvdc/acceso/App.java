@@ -4,6 +4,7 @@ package com.iesvdc.acceso;
  * Hola mundo
  */
 public class App {
+    //hola
     public static void main(String[] args) {
         GeneradorPersonas gp = new GeneradorPersonas();
         gp.loadData("datos\\nombres-mujeres.txt",
