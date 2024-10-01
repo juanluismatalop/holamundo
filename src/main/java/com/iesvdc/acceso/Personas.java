@@ -12,13 +12,13 @@ import java.util.Random;
  * Clase general para cargar archivos de nombres y apellidos 
  * y generar aleatoriamente listas de personas.
  */
-public class GeneradorPersonas {
+public class Personas {
     private List<String> listaNombresHombre;
     private List<String> listaNombresMujer;
     private List<String> listaApellidos;
     private Sexo[] sexos;
 
-    public GeneradorPersonas() {
+    public Personas() {
         this.sexos = Sexo.values();
     }
 
@@ -91,7 +91,7 @@ public class GeneradorPersonas {
      * @return
      */
     String getEmail(Persona p){
-        String email=p.nombre.charAt(0)+p.apellido+"@educaand.es";
+        String email=p.getNombre().charAt(0)+p.getApellido()+"@educaand.es";
         return email.toLowerCase();
     }
 
@@ -188,4 +188,6 @@ public class GeneradorPersonas {
         int dni = rd.nextInt(1000000 , 10000000);
         return dni;
     }
+
+    
 }

@@ -2,16 +2,29 @@ package com.iesvdc.acceso;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.List;
 
 public class Persona {
 
-    String nombre;
-    String apellido;
-    String email;
-    int numeroDNI;
-    char letraDNI;
-    LocalDate fechaNacimiento;
-    Sexo sexo;
+    private String nombre;
+    private String apellido;
+    private String email;
+    private int numeroDNI;
+    private char letraDNI;
+    private LocalDate fechaNacimiento;
+    private Sexo sexo;
+    private List<Direccion> direcciones;
+
+    public List<Direccion> getDirecciones(){
+        return this.direcciones;
+    }
+    public void setDiercciones(List<Direccion> direcciones){
+        this.direcciones = direcciones;
+    }
+
+    public void delDireccion(Direccion d){
+        
+    }
 
     public Persona() {
     }
