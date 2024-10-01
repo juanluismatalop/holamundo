@@ -1,3 +1,5 @@
 target
 *.class
-*.
+*.data
+.vscode
+.mvn
