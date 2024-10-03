@@ -1,12 +1,26 @@
-package com.iesvdc.acceso;
+package com.iesvdc.acceso.Modelo;
 import java.util.Objects;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Direccion {
+    @XmlAttribute
     private long id;
+    @XmlElement
     private String nombreVia;
+    @XmlElement
     private TipoVia tipoVia;
-    int numero;
-    String detalle; 
+    @XmlElement
+    private int numero;
+    @XmlElement
+    private String detalle;
+    
 
     public Direccion() {
     }
@@ -92,7 +106,7 @@ public class Direccion {
             return false;
         }
         Direccion direccion = (Direccion) o;
-        return id == direccion.id && Objects.equals(nombreVia, direccion.nombreVia) && Objects.equals(tipoVia, direccion.tipoVia) && numero == direccion.numero && Objects.equals(detalle, direccion.detalle);
+        return id == direccion.id ;
     }
 
     @Override
@@ -111,5 +125,5 @@ public class Direccion {
             "}";
     }
     
-    
 }
+

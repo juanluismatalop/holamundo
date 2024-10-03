@@ -1,26 +1,24 @@
 package com.iesvdc.acceso;
 
-import java.util.List;
-
+import com.iesvdc.acceso.Modelo.Personas;
 /**
- * Hola mundo
+ * Hello world!
  */
 public class App {
-    //hola
     public static void main(String[] args) {
-        Personas gp = new Personas();
-        gp.loadData("datos\\nombres-mujeres.txt",
-         "datos\\nombres-hombre.txt",
-          "datos\\apellido.txt");
-        try{
-            System.out.println(gp.generaPersonas(10).toString());
-        }catch(Exception e){
+        Personas personas = new Personas();
+        personas.loadData(
+            "datos/nombres-mujer.txt", 
+            "datos/nombres-hombre.txt",
+            "datos/apellidos.txt");
+        
+        try {
+            personas.generaPersonas(100);
+            System.out.println(personas.getPersonas().toString());
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
     }
-
-    public List<Personas> getPersonas(){
-        return this.personas;
-        }
 }
+       
+

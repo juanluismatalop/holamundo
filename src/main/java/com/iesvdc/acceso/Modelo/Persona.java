@@ -1,18 +1,34 @@
-package com.iesvdc.acceso;
+package com.iesvdc.acceso.Modelo;
 
 import java.time.LocalDate;
 import java.util.Objects;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.util.List;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Persona {
 
+    @XmlElement(required = true)
     private String nombre;
+    @XmlElement(required = true)
     private String apellido;
+    @XmlElement(required = true)
     private String email;
+    @XmlElement(required = true)
     private int numeroDNI;
+    @XmlElement(required = true)
     private char letraDNI;
+    @XmlElement(required = true)
     private LocalDate fechaNacimiento;
+    @XmlElement(required = true)
     private Sexo sexo;
+    @XmlElement
     private List<Direccion> direcciones;
 
     public List<Direccion> getDirecciones(){

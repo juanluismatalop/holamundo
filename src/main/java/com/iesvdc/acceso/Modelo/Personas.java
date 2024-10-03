@@ -1,4 +1,4 @@
-package com.iesvdc.acceso;
+package com.iesvdc.acceso.Modelo;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,18 +8,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.iesvdc.acceso.Excepciones.DniException;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+
 /**
  * Clase general para cargar archivos de nombres y apellidos 
  * y generar aleatoriamente listas de personas.
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Personas {
+    @XmlElement
+    private List<Persona> personas;
+    @XmlTransient
     private List<String> listaNombresHombre;
+    @XmlTransient
     private List<String> listaNombresMujer;
+    @XmlTransient
     private List<String> listaApellidos;
+    @XmlTransient
     private Sexo[] sexos;
 
     public Personas() {
         this.sexos = Sexo.values();
+        this.personas = new ArrayList<Persona>();
     }
 
 
@@ -88,11 +105,12 @@ public class Personas {
      * todo en minúscula
      * quitamos acentos, letra ñ y letra ç
      * @param p
-     * @return
+     * @return un DNI generado en base al nombre de la persona
      */
     String getEmail(Persona p){
-        String email=p.getNombre().charAt(0)+p.getApellido()+"@educaand.es";
-        return email.toLowerCase();
+        String email="@educaand.es";
+
+        return email;
     }
 
     /**
@@ -103,9 +121,8 @@ public class Personas {
         Persona p = new Persona();
 
         p.setSexo(getRandomSexo());
-
+        p.setFechaNacimiento(generaFechaNacimiento());
         p.setApellido(getRandomString(listaApellidos));
-
 
         switch (p.getSexo()) {
             case HOMBRE:
@@ -123,16 +140,7 @@ public class Personas {
         }
 
         p.setEmail(getEmail(p));
-
-        p.setNumeroDNI(gnerarDNIRandom());
-
-        try{
-            p.setLetraDNI(calcularLetra(gnerarDNIRandom()));
-        }catch(DniException e){}
-
-        p.setFechaNacimiento(generarFechasNacimiento());
-        
-        
+                
 
         return p;
     }
@@ -140,7 +148,7 @@ public class Personas {
     /**
      * Dado un número de DNI (número entero entre 1.000.000 y 99.999.999)
      * @param dni
-     * @return  devuelve un la letra del DNI valido
+     * @return la letra para un número de DNI válido
      */
     public char calcularLetra(int dni) throws DniException{
         if (dni > 99999999 || dni < 1000000) {
@@ -150,44 +158,45 @@ public class Personas {
         int resto = dni%23;
         return caracteres.charAt(resto);
     }
-    /**
-     * Un metodo que genera una lista de personas que vaya recorriendo la lista y añadiendo automaticamente
-     * @param numero
-     * @return lista de personas
-     */
-    public List<Persona> generaPersonas(int numero)throws Exception{
-        List<Persona> lista = new ArrayList<Persona>();
-        if (this.listaApellidos==null ||this.listaNombresHombre==null || this.listaNombresMujer==null) {
-            //System.err.println("No se han podido acceder a esos archivos");
-            throw new Exception("Error no se han cargado los archivos con los nombres y apellidos previamente.");
-            
-        }
-        else
-            for (int i = 0; i < numero; i++){
-                lista.add(getRandomPersona());
-        }
-        return lista;
-    }
-    /**
-     * Metodo que genera una fecha aleatoria desde 1920 hasta hoy 
-     * @return la fecha de nacimiento
-     */
-    private LocalDate generarFechasNacimiento(){
-        //long [nombre] = dd-MM-yyyy HH:mm:ss
-        LocalDate startingDate = LocalDate.of(1920, 1, 1);
-        long startingDateLong = startingDate.toEpochDay();
-        LocalDate endingDate = LocalDate.now();
-        long endingDateLong = endingDate.toEpochDay();
-        long aleatorio = new Random().nextLong(endingDateLong - startingDateLong);        
-        LocalDate fechaRandom = LocalDate.ofEpochDay(aleatorio + startingDateLong);
-        return fechaRandom;
-    } 
 
-    private static int gnerarDNIRandom(){
-        Random rd = new Random();
-        int dni = rd.nextInt(1000000 , 10000000);
-        return dni;
+    /**
+     * Genera tantas personas como se indican
+     * @param numero personas a generar
+     * @return lista que contiene las personas
+     */
+    public void generaPersonas(int numero) throws Exception{
+        
+        if (this.listaApellidos==null || 
+            this.listaNombresHombre==null || 
+            this.listaNombresMujer == null)
+            {
+                //System.err.println("Error no se han cargado los archivos "+
+                // "con los nombres y apellidos previamente.");
+
+                throw new Exception("Error no se han cargado los archivos "+
+                    "con los nombres y apellidos previamente.");
+
+            } else {
+                for (int i = 0; i < numero; i++) {
+                    this.personas.add(getRandomPersona());
+                }
+            }        
     }
 
-    
+    public List<Persona> getPersonas() {
+        return this.personas;
+    }
+
+    LocalDate generaFechaNacimiento() {
+
+        LocalDate inicio = LocalDate.of(1920, 1, 1);
+        LocalDate fin = LocalDate.now();
+
+        Long rango = fin.toEpochDay() - inicio.toEpochDay();
+        Long r = new Random().nextLong(rango);
+
+        return LocalDate.ofEpochDay(r+inicio.toEpochDay());
+        
+    }
 }
+

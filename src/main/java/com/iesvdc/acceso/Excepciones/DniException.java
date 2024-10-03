@@ -1,4 +1,4 @@
-package com.iesvdc.acceso;
+package com.iesvdc.acceso.Excepciones;
 
 public class DniException extends Exception {
     public DniException(String mensaje){
